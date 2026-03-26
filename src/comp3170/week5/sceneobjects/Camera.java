@@ -13,12 +13,24 @@ public class Camera extends SceneObject {
 	private Matrix4f projectionMatrix = new Matrix4f();
 	private Matrix4f viewMatrix = new Matrix4f();
 	
+	private int windowWidth = 800;
+	private int windowHeight = 600;
+	
 	public Camera() {
-		
+		resize(windowWidth, windowHeight);
 	}
 	
 	public void resize(int w, int h) {
 		//TODO: Change the projection matrix when the window is resized. (TASK 2)
+		
+		float aspect = (float) w / h;
+		float left = -zoom * aspect;
+		float right = zoom * aspect;
+		float bottom = -zoom;
+		float top = zoom;
+		float near = -100;
+		float far = 100;
+		projectionMatrix.identity().ortho(left, right, bottom, top, near, far);
 	}
 	
 	public Matrix4f GetViewMatrix(Matrix4f dest) {
