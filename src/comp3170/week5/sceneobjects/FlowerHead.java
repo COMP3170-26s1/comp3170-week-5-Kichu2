@@ -27,6 +27,17 @@ public class FlowerHead extends SceneObject {
 		
 		shader = ShaderLibrary.instance.compileShader(VERTEX_SHADER, FRAGMENT_SHADER);		
 		petalColour = colour;
+		
+		float innerRadius = 0.1f;
+		float outerRadius = 0.4f;
+		float angleSpan = (float)(2*Math.PI/nPetals);
+		
+		for(int i = 0; i < nPetals; i++) {
+			Petal petal = new Petal(innerRadius, outerRadius, angleSpan, petalColour);
+			
+			float angle = i * angleSpan;
+			petal.setLocalMatrix(petal.getLocalMatrix().rotateZ(angle));
+		}
 	}
 
 	public void update(float dt) {
